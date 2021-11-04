@@ -8,4 +8,9 @@ router.post("/register", (req, res) => {
 	userController.registerUser(req.body).then(resultFromController => res.send(resultFromController));
 })
 
+
+
+
+
+
 module.exports = router;
