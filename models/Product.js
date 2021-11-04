@@ -12,7 +12,16 @@ const productSchema = new mongoose.Schema({
 	price: {
 		type: Number,
 		required: [true, "Price is requried"]
+	},
+	isActive: {
+		type: Boolean,
+		default: true
+	},
+	createdOn: {
+		type: Date,
+		default: new Date()
 	}
+
 })
 
 module.exports = mongoose.model("Product", productSchema)
