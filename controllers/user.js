@@ -24,7 +24,7 @@ module.exports.registerUser = (reqBody) => {
 */
 ////////////////////////////////////////////////////
 
-
+///////////////////////////////////////////////////
 //User Registration	with duplicate email detection
 module.exports.registerUser = (reqBody) => {
 	
@@ -48,7 +48,7 @@ module.exports.registerUser = (reqBody) => {
 		} 
 	})	
 };
-
+///////////////////////////////////////////
 //User authentication
 module.exports.loginUser = (reqBody) => {
 	return User.findOne({email: reqBody.email}).then(result => {
@@ -66,7 +66,7 @@ module.exports.loginUser = (reqBody) => {
 		}
 	})
 }
-
+///////////////////////////////////////////
 //Setting user to admin
 module.exports.setAsAdmin = async (reqParams, adminData) => {
 	//find out if requester is admin
@@ -103,4 +103,4 @@ module.exports.setAsAdmin = async (reqParams, adminData) => {
 		return(`You have no admin access`);
 	}
 }*/
-// ///////////////////////////////////////////////
+/////////////////////////////////////////////////

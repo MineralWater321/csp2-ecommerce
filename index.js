@@ -20,7 +20,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use("/users", userRoutes);
 
-// app.use("/products", productRoutes);
+app.use("/products", productRoutes);
 
 app.listen(process.env.PORT || 4000, () => {
 	console.log(`API is now online on port ${process.env.PORT || 4000}`)
