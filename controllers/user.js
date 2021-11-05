@@ -3,6 +3,8 @@ const Product = require("../models/Product");
 const bcrypt = require("bcrypt");
 const auth = require("../auth");
 
+
+/////////////////////////////////////////////////
 /*//User Registration
 module.exports.registerUser = (reqBody) => {
 	let newUser = new User({
@@ -20,6 +22,8 @@ module.exports.registerUser = (reqBody) => {
 	})
 };
 */
+////////////////////////////////////////////////////
+
 
 //User Registration	with duplicate email detection
 module.exports.registerUser = (reqBody) => {
@@ -44,3 +48,59 @@ module.exports.registerUser = (reqBody) => {
 		} 
 	})	
 };
+
+//User authentication
+module.exports.loginUser = (reqBody) => {
+	return User.findOne({email: reqBody.email}).then(result => {
+		if(result == null){
+			return false;
+		}
+		else{
+			const isPasswordCorrect = bcrypt.compareSync(reqBody.password, result.password);
+			if(isPasswordCorrect){
+				return { access: auth.createAccessToken(result) }
+			}
+			else{
+				return false;
+			}
+		}
+	})
+}
+
+//Setting user to admin
+module.exports.setAsAdmin = async (reqParams, adminData) => {
+	//find out if requester is admin
+	if(adminData.isAdmin){
+		return User.findByIdAndUpdate(reqParams.userId, {isAdmin: true}).then((user, error) => {
+			if(error){
+				return false;
+			}
+			else{
+				return true;
+			}
+		})
+	}
+	else{
+		return(`You have no admin access`);
+	}
+}
+
+/////////////////////////////////////////////////
+//Alternative method to set user as admin using email instead of user id
+/*module.exports.setAdmin = async (reqBody, adminData) => {
+	//find out if requester is admin
+	if(adminData.isAdmin){
+		return User.findOneAndUpdate({email: reqBody.email}, {isAdmin: true}).then((user, error) => {
+			if(error){
+				return false;
+			}
+			else{
+				return true;
+			}
+		})
+	}
+	else{
+		return(`You have no admin access`);
+	}
+}*/
+// ///////////////////////////////////////////////
