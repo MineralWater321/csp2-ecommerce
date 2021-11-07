@@ -4,9 +4,10 @@ const bcrypt = require("bcrypt");
 const auth = require("../auth");
 
 
-/////////////////////////////////////////////////
-/*//User Registration
-module.exports.registerUser = (reqBody) => {
+/******************************************/
+/**********User Registration***************/
+/******************************************/
+/*module.exports.registerUser = (reqBody) => {
 	let newUser = new User({
 		email: reqBody.email,
 		password: bcrypt.hashSync(reqBody.password, 10)
@@ -20,12 +21,14 @@ module.exports.registerUser = (reqBody) => {
 			return true;
 		}
 	})
-};
-*/
-////////////////////////////////////////////////////
+};*/
 
-///////////////////////////////////////////////////
-//User Registration	with duplicate email detection
+
+
+/******************************************/
+/*********User Registration with **********/
+/*******duplicate email detection**********/
+/******************************************/
 module.exports.registerUser = (reqBody) => {
 	
 	return User.find({email: reqBody.email}).then(result => {
@@ -48,8 +51,10 @@ module.exports.registerUser = (reqBody) => {
 		} 
 	})	
 };
-///////////////////////////////////////////
-//User authentication
+
+/******************************************/
+/***********User authentication************/
+/******************************************/
 module.exports.loginUser = (reqBody) => {
 	return User.findOne({email: reqBody.email}).then(result => {
 		if(result == null){
@@ -66,8 +71,10 @@ module.exports.loginUser = (reqBody) => {
 		}
 	})
 }
-///////////////////////////////////////////
-//Setting user to admin
+
+/******************************************/
+/***********Setting user to admin**********/
+/******************************************/
 module.exports.setAsAdmin = async (reqParams, adminData) => {
 	//find out if requester is admin
 	if(adminData.isAdmin){
@@ -85,8 +92,10 @@ module.exports.setAsAdmin = async (reqParams, adminData) => {
 	}
 }
 
-/////////////////////////////////////////////////
-//Alternative method to set user as admin using email instead of user id
+/*********************************************/
+/**** Alternative method to set user *********/
+/** as admin using email instead of user id **/
+/*********************************************/
 /*module.exports.setAdmin = async (reqBody, adminData) => {
 	//find out if requester is admin
 	if(adminData.isAdmin){
@@ -103,4 +112,4 @@ module.exports.setAsAdmin = async (reqParams, adminData) => {
 		return(`You have no admin access`);
 	}
 }*/
-/////////////////////////////////////////////////
+

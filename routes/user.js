@@ -3,17 +3,23 @@ const router = express.Router();
 const userController = require("../controllers/user");
 const auth = require("../auth")
 
-//Route for user registration
+/******************************************/
+/**********User Registration***************/
+/******************************************/
 router.post("/register", (req, res) => {
 	userController.registerUser(req.body).then(resultFromController => res.send(resultFromController));
 })
 
-//Route for authenticating user
+/******************************************/
+/***********User authentication************/
+/******************************************/
 router.post("/login", (req, res) => {
 	userController.loginUser(req.body).then(resultFromController => res.send(resultFromController));
 });
 
-//Route for setting user as admin
+/******************************************/
+/***********Setting user to admin**********/
+/******************************************/
 router.put("/:userId/admin", auth.verify, (req,res) => {
 
 	const adminData = auth.decode(req.headers.authorization);
@@ -22,8 +28,10 @@ router.put("/:userId/admin", auth.verify, (req,res) => {
 })
 
 
-//////////////////////////////////////////////////////
-//Alternative method to set user as admin. Using email provided in body to indicate which user instead of param
+/*********************************************/
+/**** Alternative method to set user *********/
+/** as admin using email instead of user id **/
+/*********************************************/
 /*
 //Route for setting user as admin
 router.put("/admin", auth.verify, (req,res) => {

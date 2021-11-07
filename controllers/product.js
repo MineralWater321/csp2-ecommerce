@@ -1,8 +1,9 @@
 const Product = require("../models/Product");
 const auth = require("../auth");
 
-//////////////////////////////////////////////
-//Create Product
+/******************************************/
+/************* Create Product *************/
+/******************************************/
 module.exports.registerProduct = async (reqBody, adminData) => {
 	if(adminData.isAdmin){
 		let newProduct = new Product({
@@ -25,32 +26,35 @@ module.exports.registerProduct = async (reqBody, adminData) => {
 	}
 }
 
-///////////////////////////////////////////////
-//Retrieving all active product
-module.exports.getAllActive = () => {
+/******************************************/
+/****** Retrieving all active product *****/
+/******************************************/
+module.exports.getAllActive = () => { 
 	return Product.find({isActive: true}).then(result => {
 		return result;
 	})
 }
 
-////////////////////////////////////////////////
-//Retrieving a specific product
+/******************************************/
+/****** Retrieving a specific product *****/
+/******************************************/
 module.exports.getProduct = (reqParams) => {
 	return Product.findById(reqParams.productId).then(result => {
 		return result;
 	})
 }
-//////////////////////////////////////////////////
-//Update a product sample
-module.exports.updateProduct = async (reqParams, adminData, reqBody) => {
 
+/******************************************/
+/********* Update a product sample ********/
+/******************************************/
+module.exports.updateProduct = async (reqParams, reqBody, adminData) => {
+	
 	if(adminData.isAdmin){
 
 		let updatedProduct = {
 			name: reqBody.name,
 			description: reqBody.description,
-			price: reqBody.price,
-			isActive: reqBody.isActive
+			price: reqBody.price
 		}
 
 		return Product.findByIdAndUpdate(reqParams.productId, updatedProduct).then((product, error) => {
@@ -68,12 +72,12 @@ module.exports.updateProduct = async (reqParams, adminData, reqBody) => {
 
 }
 
-//////////////////////////////////////////////////
-//Archive a product
-module.exports.updateProduct = async (reqParams, adminData) => {
-
+/******************************************/
+/*********** Archive a product ************/
+/******************************************/
+module.exports.archiveProduct = async (reqParams, adminData) => {	
 	if(adminData.isAdmin){
-		return Product.findByIdAndUpdate(reqParams.productId, {isActive: false}).then((product, error) => {
+		return Product.findByIdAndUpdate(reqParams.productId, {isActive: false}, overwrite=false).then((product, error) => {
 			if(error){
 				return false;
 			}
@@ -86,4 +90,4 @@ module.exports.updateProduct = async (reqParams, adminData) => {
 		return(`You have no admin access`)
 	}
 }
-//////////////////////////////////////////////////
+/******************************************/
