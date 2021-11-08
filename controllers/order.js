@@ -16,8 +16,10 @@ module.exports.createOrder = async (reqBody, adminData) => {
 		if(productInfo.isActive){
 			let newOrder = new Order({
 				totalAmount: reqBody.quantity*productInfo.price,
+				userEmail: adminData.email,
 				userId: adminData.id,
-				productId: reqBody.productId
+				productName: productInfo.name,
+				productId: reqBody.productId,
 			})
 			return newOrder.save().then((user, error) => {
 				if(error){

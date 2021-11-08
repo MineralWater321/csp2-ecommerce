@@ -9,9 +9,17 @@ const orderSchema = new mongoose.Schema({
 		type: Date,
 		default: new Date()
 	},
+	userEmail: {
+		type: String,
+		required: [true, "User ID is requried"]
+	},
 	userId: {
 		type: String,
 		required: [true, "User ID is requried"]
+	},
+	productName: {
+		type: String,
+		required: [true, "Product ID is required"]
 	},
 	productId: {
 		type: String,
