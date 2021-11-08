@@ -10,8 +10,9 @@ module.exports.createOrder = async (reqBody, adminData) => {
 	let productInfo = await Product.findById(reqBody.productId).then(result => {
 				return result;
 			})
-
+	//Checks if user is admin
 	if(!adminData.isAdmin){
+		//Checks if product is for sale
 		if(productInfo.isActive){
 			let newOrder = new Order({
 				totalAmount: reqBody.quantity*productInfo.price,
