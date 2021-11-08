@@ -99,6 +99,7 @@ module.exports.setAsAdmin = async (reqParams, adminData) => {
 module.exports.getAllUsers = async (adminData) => {
 	if(adminData.isAdmin){
 		return User.find({}).then(result => {
+			result.password = "";
 			return result;
 		})
 	}
