@@ -92,6 +92,21 @@ module.exports.setAsAdmin = async (reqParams, adminData) => {
 	}
 }
 
+
+/******************************************/
+/************ Retrieve all users **********/
+/******************************************/
+module.exports.getAllUsers = async (adminData) => {
+	if(adminData.isAdmin){
+		return User.find({}).then(result => {
+			return result;
+		})
+	}
+	else{
+		return (`You have no Admin access`);
+	}
+}
+
 /*********************************************/
 /**** Alternative method to set user *********/
 /** as admin using email instead of user id **/

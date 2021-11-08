@@ -27,6 +27,16 @@ router.put("/:userId/admin", auth.verify, (req,res) => {
 	userController.setAsAdmin(req.params, adminData).then(resultFromController => res.send(resultFromController));
 })
 
+/******************************************/
+/************ Retrieve all users **********/
+/******************************************/
+router.get("/all", auth.verify, (req, res) => {
+
+	const adminData = auth.decode(req.headers.authorization);
+
+	userController.getAllUsers(adminData).then(resultFromController => res.send(resultFromController));
+})
+
 
 /*********************************************/
 /**** Alternative method to set user *********/
