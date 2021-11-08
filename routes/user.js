@@ -41,6 +41,11 @@ router.put("/admin", auth.verify, (req,res) => {
 	userController.setAdmin(req.body.email, adminData).then(resultFromController => res.send(resultFromController));
 })
 */
-///////////////////////////////////////////////////////
+
+
+
+
+
+
 
 module.exports = router;
