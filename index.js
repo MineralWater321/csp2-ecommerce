@@ -7,6 +7,8 @@ const orderRoutes = require("./routes/order");
 
 const app = express();
 
+app.use(cors());
+
 mongoose.connect("mongodb+srv://dbedwardpaler:A9oJgn0nL4BAbIcf@wdc028-course-booking.tgio6.mongodb.net/ecommerce?retryWrites=true&w=majority",
 	{
 		useNewUrlParser:true,

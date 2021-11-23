@@ -5,6 +5,10 @@ const orderSchema = new mongoose.Schema({
 		type: Number,
 		required: [true, "Total Amount is required"]
 	},
+	totalPrice: {
+		type: Number,
+		required: [true, "Total Amount is required"]
+	},
 	purchasedOn: {
 		type: Date,
 		default: new Date()
@@ -24,6 +28,10 @@ const orderSchema = new mongoose.Schema({
 	productId: {
 		type: String,
 		required: [true, "Product ID is required"]
+	},
+	isCheckOut: {
+		type: Boolean,
+		default: false
 	}
 })
 

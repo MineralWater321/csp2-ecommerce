@@ -4,6 +4,14 @@ const userController = require("../controllers/user");
 const auth = require("../auth")
 
 /******************************************/
+/*********Duplicate email test*************/
+/******************************************/
+router.post("/checkEmail", (req, res) => {
+	userController.checkEmailExists(req.body).then(resultFromController => res.send(resultFromController));
+});
+
+
+/******************************************/
 /**********User Registration***************/
 /******************************************/
 router.post("/register", (req, res) => {
@@ -15,6 +23,15 @@ router.post("/register", (req, res) => {
 /******************************************/
 router.post("/login", (req, res) => {
 	userController.loginUser(req.body).then(resultFromController => res.send(resultFromController));
+});
+/******************************************/
+/************Get user to details***********/
+/******************************************/
+router.get("/details", auth.verify, (req, res) => {
+
+	const userData = auth.decode(req.headers.authorization);
+	// Provides the user's ID for the getProfile controller method
+	userController.getProfile({userId : userData.id}).then(resultFromController => res.send(resultFromController));
 });
 
 /******************************************/

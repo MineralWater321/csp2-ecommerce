@@ -6,14 +6,22 @@ const auth = require("../auth")
 /*********************************************/
 /************ Create an order ****************/
 /*********************************************/
-router.post("/checkout", auth.verify, (req, res) => {
+router.post("/addToCart", auth.verify, (req, res) => {
 	
 	const adminData = auth.decode(req.headers.authorization);
 
-	orderController.createOrder(req.body, adminData).then(resultFromController => res.send(resultFromController));
+	orderController.addToCart(req.body, adminData).then(resultFromController => res.send(resultFromController));
 })
 
+/*********************************************/
+/************ Update an order ****************/
+/*********************************************/
+router.post("/updateOrder", auth.verify, (req,res) => {
 
+	const adminData = auth.decode(req.headers.authorization);
+
+	orderController.updateOrder(req.body, adminData).then(resultFromController => res.send(resultFromController));
+})
 /*********************************************/
 /************* Retrieve all orders ***********/
 /*********************************************/

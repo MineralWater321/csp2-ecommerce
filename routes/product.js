@@ -16,7 +16,7 @@ router.post("/", auth.verify, (req, res) => {
 /******************************************/
 /****** Retrieving all active product *****/
 /******************************************/
-router.get("/", (req, res) => {
+router.get("/all", (req, res) => {
 	productController.getAllActive().then(resultFromController => res.send(resultFromController));
 })
 
