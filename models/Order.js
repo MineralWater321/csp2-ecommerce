@@ -21,17 +21,9 @@ const orderSchema = new mongoose.Schema({
 		type: String,
 		required: [true, "User ID is requried"]
 	},
-	productName: {
-		type: String,
-		required: [true, "Product ID is required"]
-	},
 	productId: {
 		type: String,
 		required: [true, "Product ID is required"]
-	},
-	isCheckOut: {
-		type: Boolean,
-		default: false
 	}
 })
 

@@ -4,19 +4,9 @@ const orderController = require("../controllers/order");
 const auth = require("../auth")
 
 /*********************************************/
-/************ Create an order ****************/
-/*********************************************/
-router.post("/addToCart", auth.verify, (req, res) => {
-	
-	const adminData = auth.decode(req.headers.authorization);
-
-	orderController.addToCart(req.body, adminData).then(resultFromController => res.send(resultFromController));
-})
-
-/*********************************************/
 /************ Update an order ****************/
 /*********************************************/
-router.post("/updateOrder", auth.verify, (req,res) => {
+router.post("/updateOrder", auth.verify, (req, res) => {
 
 	const adminData = auth.decode(req.headers.authorization);
 
@@ -26,7 +16,7 @@ router.post("/updateOrder", auth.verify, (req,res) => {
 /************* Retrieve all orders ***********/
 /*********************************************/
 router.get("/orders", auth.verify, (req, res) => {
-	
+
 	const adminData = auth.decode(req.headers.authorization);
 
 	orderController.getAllOrders(adminData).then(resultFromController => res.send(resultFromController));
