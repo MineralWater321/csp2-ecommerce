@@ -39,5 +39,10 @@ router.delete("/removeItem", auth.verify, (req, res) => {
     cartController.removeItem(req.body, adminData).then(resultFromController => res.send(resultFromController));
 })
 
-router.checkout("checkout")
+router.post("/checkOut", auth.verify, (req, res) => {
+
+    const adminData = auth.decode(req.headers.authorization);
+
+    cartController.checkOut(req.body, adminData).then(resultFromController => res.send(resultFromController));
+})
 module.exports = router;

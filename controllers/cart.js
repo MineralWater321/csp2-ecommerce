@@ -21,6 +21,7 @@ module.exports.addToCart = async (reqParams, adminData) => {
     if (cartInfo) {
         let updateAmount = {
             amount: cartInfo.amount + 1,
+            totalPrice: cartInfo.totalPrice + productInfo.price,
         }
 
         return Cart.findByIdAndUpdate(cartInfo._id, updateAmount).then((product, error) => {
@@ -114,3 +115,31 @@ module.exports.removeItem = async (reqBody, adminData) => {
 
 
 // 5. Checkout
+module.exports.checkOut = async (reqBody, adminData) => {
+    let cartInfo = await Cart.find({ userId: adminData.id }, { _id: 0, productId: 1 }).then(result => {
+        return result;
+    })
+
+    let orders = [];
+
+    for (let i = 0; i < cartInfo.length; i++) {
+        orders.push(cartInfo[i].productId)
+    }
+
+    console.log(orders)
+
+    let newOrder = new Order({
+        // totalAmount: reqBody.totalAmount,
+        userId: adminData.id,
+        orderList: orders
+    })
+
+    return newOrder.save().then((user, error) => {
+        if (error) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    })
+}   
