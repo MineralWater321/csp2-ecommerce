@@ -5,17 +5,9 @@ const orderSchema = new mongoose.Schema({
 		type: Number,
 		required: [true, "Total Amount is required"]
 	},
-	totalPrice: {
-		type: Number,
-		required: [true, "Total Amount is required"]
-	},
 	purchasedOn: {
 		type: Date,
 		default: new Date()
-	},
-	userEmail: {
-		type: String,
-		required: [true, "User ID is requried"]
 	},
 	userId: {
 		type: String,
