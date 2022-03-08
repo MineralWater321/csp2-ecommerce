@@ -18,6 +18,13 @@ router.post("/:productId/addToCart", auth.verify, (req, res) => {
     cartController.addToCart(req.params, adminData).then(resultFromController => res.send(resultFromController));
 })
 
+router.get("/cartItems", auth.verify, (req, res) => {
+
+    const adminData = auth.decode(req.headers.authorization);
+
+    cartController.cartItems(adminData).then(resultFromController => res.send(resultFromController));
+})
+
 router.put("/addQuantity", auth.verify, (req, res) => {
 
     const adminData = auth.decode(req.headers.authorization);

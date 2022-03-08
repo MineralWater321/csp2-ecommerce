@@ -23,7 +23,7 @@ router.get("/all", (req, res) => {
 /******************************************/
 /****** Retrieving a specific product *****/
 /******************************************/
-router.get("/:productId", (req,res) => {
+router.get("/:productId", (req, res) => {
 	console.log(req.params.productId);
 	productController.getProduct(req.params).then(resultFromController => res.send(resultFromController));
 })

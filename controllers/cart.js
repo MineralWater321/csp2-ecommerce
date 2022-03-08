@@ -40,7 +40,8 @@ module.exports.addToCart = async (reqParams, adminData) => {
         if (productInfo.isActive) {
             let newCart = new Cart({
                 userId: adminData.id,
-                productId: reqParams.productId
+                productId: reqParams.productId,
+                totalPrice: productInfo.price
             })
             return newCart.save().then((user, error) => {
                 if (error) {
@@ -58,6 +59,15 @@ module.exports.addToCart = async (reqParams, adminData) => {
     else {
         return (`noAdmin`);
     }
+}
+// Get cart items
+module.exports.cartItems = async (adminData) => {
+
+    let cartInfo = await Cart.find({ userId: adminData.id }).then(result => {
+        return result;
+    })
+    console.log(adminData.id)
+    return cartInfo;
 }
 
 // 2. Add quantity
@@ -125,8 +135,6 @@ module.exports.checkOut = async (reqBody, adminData) => {
     for (let i = 0; i < cartInfo.length; i++) {
         orders.push(cartInfo[i].productId)
     }
-
-    console.log(orders)
 
     let newOrder = new Order({
         // totalAmount: reqBody.totalAmount,
