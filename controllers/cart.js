@@ -39,6 +39,7 @@ module.exports.addToCart = async (reqParams, adminData) => {
         //Checks if product is for sale
         if (productInfo.isActive) {
             let newCart = new Cart({
+                productName: productInfo.name,
                 userId: adminData.id,
                 productId: reqParams.productId,
                 totalPrice: productInfo.price
@@ -66,7 +67,9 @@ module.exports.cartItems = async (adminData) => {
     let cartInfo = await Cart.find({ userId: adminData.id }).then(result => {
         return result;
     })
-    console.log(adminData.id)
+
+    let productInfo = await Product.find({ cartInfo })
+    console.log(cartInfo.productId)
     return cartInfo;
 }
 
@@ -125,7 +128,7 @@ module.exports.removeItem = async (reqBody, adminData) => {
 
 
 // 5. Checkout
-module.exports.checkOut = async (reqBody, adminData) => {
+module.exports.checkOut = async (adminData) => {
     let cartInfo = await Cart.find({ userId: adminData.id }, { _id: 0, productId: 1 }).then(result => {
         return result;
     })
@@ -150,4 +153,18 @@ module.exports.checkOut = async (reqBody, adminData) => {
             return true;
         }
     })
-}   
+}
+
+module.exports.cartPrice = async (adminData) => {
+    let cartInfo = await Cart.find({ userId: adminData.id }, { _id: 0, totalPrice: 1 }).then(result => {
+        return result;
+    })
+
+    let cartPrice = 0;
+
+    for (let i = 0; i < cartInfo.length; i++) {
+        cartPrice = cartPrice + cartInfo[i].totalPrice;
+    }
+
+    return `${cartPrice}`
+}

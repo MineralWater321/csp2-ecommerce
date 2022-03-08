@@ -50,6 +50,13 @@ router.post("/checkOut", auth.verify, (req, res) => {
 
     const adminData = auth.decode(req.headers.authorization);
 
-    cartController.checkOut(req.body, adminData).then(resultFromController => res.send(resultFromController));
+    cartController.checkOut(adminData).then(resultFromController => res.send(resultFromController));
+})
+
+router.get("/cartPrice", auth.verify, (req, res) => {
+
+    const adminData = auth.decode(req.headers.authorization);
+
+    cartController.cartPrice(adminData).then(resultFromController => res.send(resultFromController));
 })
 module.exports = router;
