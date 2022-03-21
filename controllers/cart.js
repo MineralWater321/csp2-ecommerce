@@ -75,12 +75,15 @@ module.exports.cartItems = async (adminData) => {
 
 // 2. Add quantity
 module.exports.addQuantity = async (reqBody, adminData) => {
-    let cartInfo = await Cart.findOne({ userId: adminData.id, productId: reqBody.productId }).then(result => {
+    let cartInfo = await Cart.findOne({ userId: adminData.id, productName: reqBody.productName }).then(result => {
         return result;
     })
+    let productInfo = await Product.findOne({ productName: reqBody.productName })
 
+    console.log(reqBody)
     let updateAmount = {
-        amount: cartInfo.amount + reqBody.amount,
+        amount: cartInfo.amount + 1,
+        totalPrice: productInfo.price * (cartInfo.amount + 1)
     }
 
     return Cart.findByIdAndUpdate(cartInfo._id, updateAmount).then((product, error) => {
@@ -94,15 +97,12 @@ module.exports.addQuantity = async (reqBody, adminData) => {
 }
 // 3. Subtract Quantity
 module.exports.subtractQuantity = async (reqBody, adminData) => {
-    let cartInfo = await Cart.findOne({ userId: adminData.id, productId: reqBody.productId }).then(result => {
+    let cartInfo = await Cart.findOne({ userId: adminData.id, productName: reqBody.productName }).then(result => {
         return result;
     })
 
-    if (cartInfo.amount < reqBody.amount) return 'Already zero';
-
-
     let updateAmount = {
-        amount: cartInfo.amount - reqBody.amount,
+        amount: cartInfo.amount - 1,
     }
 
     return Cart.findByIdAndUpdate(cartInfo._id, updateAmount).then((product, error) => {

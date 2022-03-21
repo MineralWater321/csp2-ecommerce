@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/users", userRoutes);
 
-app.use("/products", cartRoutes);
+app.use("/carts", cartRoutes);
 
 app.use("/products", productRoutes);
 
